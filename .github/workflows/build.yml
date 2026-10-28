@@ -16,7 +16,10 @@ jobs:
       - uses: NuGet/setup-nuget@v2
 
       - name: Build SDL
-        run: msbuild SDL\VisualC\SDL\SDL.vcxproj /p:Configuration=Release /p:Platform=x64
+        run: msbuild SDL\VisualC\SDL\SDL.vcxproj /p:Configuration=Release /p:Platform=x64 /p:SolutionDir=${{ github.workspace }}\SDL\VisualC\
+
+      - name: Show where SDL3.lib ended up
+        run: Get-ChildItem -Path SDL -Recurse -Filter SDL3.* | Select-Object FullName
 
       - name: Restore packages
         run: nuget restore "Xbox Controller button remapper.sln"
