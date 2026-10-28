@@ -1,6 +1,7 @@
-yaml
 name: Build
-on: workflow_dispatch
+
+on:
+  workflow_dispatch:
 
 jobs:
   build:
@@ -11,6 +12,7 @@ jobs:
           submodules: recursive
 
       - uses: microsoft/setup-msbuild@v2
+
       - uses: NuGet/setup-nuget@v2
 
       - name: Build SDL
