@@ -1,0 +1,31 @@
+yaml
+name: Build
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - uses: microsoft/setup-msbuild@v2
+      - uses: NuGet/setup-nuget@v2
+
+      - name: Build SDL
+        run: msbuild SDL\VisualC\SDL\SDL.vcxproj /p:Configuration=Release /p:Platform=x64
+
+      - name: Restore packages
+        run: nuget restore "Xbox Controller button remapper.sln"
+
+      - name: Build remapper
+        run: msbuild "Xbox Controller button remapper.sln" /p:Configuration=Release /p:Platform=x64
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: remapper
+          path: |
+            x64/Release/*.exe
+            SDL/VisualC/x64/Release/*.dll
+            config.ini
