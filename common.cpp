@@ -177,7 +177,7 @@ void set_file_path(std::wstring extension)
 	datetime2 = datetime2.substr(0, datetime2.find('.') + 4); // Keep last 3 digits only
 	std::replace(datetime2.begin(), datetime2.end(), '.', '-');
 	//std::wstring file_path = std::wstring(captures_location) + L"\\" + window_title2 + L" Screenshot " + datetime2 + extension;
-	folder_path = std::wstring(captures_location)
+	folder_path = std::wstring(captures_location);
 
 	if (!std::filesystem::exists(folder_path)) // Check if folder exists
 	{
